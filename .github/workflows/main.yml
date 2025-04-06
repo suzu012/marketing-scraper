@@ -1,6 +1,8 @@
 name: Auto Scraper
 
 on:
+  schedule:
+    - cron: '0 21 * * *'  # 日本時間の朝6:00に毎日実行（UTCで21:00）
   workflow_dispatch:
 
 jobs:
@@ -33,4 +35,3 @@ jobs:
           git add *.csv
           git commit -m "📝 CSVファイルを自動追加"
           git push
-
