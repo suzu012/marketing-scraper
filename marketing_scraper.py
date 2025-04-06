@@ -1,29 +1,27 @@
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
-improt csv
-improt pytz
+import csv
+import pytz
 
-＃　日本時間を取得
+# 日本時間を取得
 jst = pytz.timezone('Asia/Tokyo')
 now = datetime.now(jst)
 today = now.strftime("%Y-%m-%d")
 
-＃　ここを取得したいニュースのRSS URLに変更
-url = "https://markezine.jp/rss/new/"  # 例：マーケティング系
-
-＃　RSSデータを取得
+# RSSデータを取得
+url = "https://news.yahoo.co.jp/rss/topics/top-picks.xml"
 response = requests.get(url)
-soup = BeautihulSoup(response.content,"xml")
+soup = BeautifulSoup(response.content, "xml")
 items = soup.find_all("item")
 
-# 保存ファイル名（日付付き）
+# ファイル名を作成
 filename = f"marketing_{today}.csv"
 
-# CSVに保存
+# CSVファイルに保存
 with open(filename, "w", encoding="utf-8", newline="") as f:
     writer = csv.writer(f)
-    writer.writerow(["日付", "タイトル", "URL"])  # ヘッダー行
+    writer.writerow(["日付", "タイトル", "URL"])
     for item in items:
         title = item.title.text
         link = item.link.text
