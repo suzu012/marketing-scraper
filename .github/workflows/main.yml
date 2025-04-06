@@ -33,3 +33,4 @@ jobs:
           git add *.csv
           git commit -m "📝 CSVファイルを自動追加"
           git push
+
